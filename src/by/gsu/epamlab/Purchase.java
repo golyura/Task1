@@ -5,33 +5,32 @@ import java.util.Scanner;
 
 public class Purchase {
     private String name;
-    private double price;
     private int units;
-//    private static final String IDENTIFICATOR = "GENERAL_PURCHASE";
+    private FinancialValue price = new FinancialValue();
 
     //region Constructors
     public Purchase() {
-//        name = "nothing";
-//        price = 0;
     }
 
-    public Purchase(String name, double price, int units) {
+    public Purchase(String name, long total, int units) {
         this.name = name;
-        this.price = price;
+        this.price.setTotal(total);
         this.units = units;
     }
 
     public Purchase(Scanner scanner) {
         name = scanner.next();
-        price = scanner.nextDouble();
+        price.setTotal(scanner.nextLong());
         units = scanner.nextInt();
     }
     //endregion
 
     //region Getters
-    public String getName() { return name; }
+    public String getName() {
+        return name;
+    }
 
-    public double getPrice() {
+    public FinancialValue getPrice() {
         return price;
     }
 
@@ -41,11 +40,11 @@ public class Purchase {
 
     //endregion
 
-    public double getCost(){
-        return units * price;
+    public FinancialValue getCost() {
+        return new FinancialValue(units * price.getTotal(), "BYN");
     }
 
-    protected String fieldsToString(){
+    protected String fieldsToString() {
         return "name='" + name + '\'' +
                 "; price=" + price +
                 "; units=" + units;
@@ -53,20 +52,21 @@ public class Purchase {
 
     @Override
     public String toString() {
-        return  fieldsToString() +
+        return fieldsToString() +
                 "; cost=" + getCost();
     }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (!(o instanceof Purchase)) return false;
         Purchase purchase = (Purchase) o;
-        return Double.compare(purchase.price, price) == 0 &&
-                Objects.equals(name, purchase.name);
+        return Objects.equals(name, purchase.name) &&
+                Objects.equals(price, purchase.price);
     }
-//
-//    @Override
-//    public int hashCode() {
-//        return Objects.hash(name, price);
-//    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(name, price);
+    }
 }

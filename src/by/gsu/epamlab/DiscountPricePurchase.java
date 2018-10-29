@@ -3,13 +3,13 @@ package by.gsu.epamlab;
 import java.util.Scanner;
 
 public class DiscountPricePurchase extends Purchase {
-    private double discountPrice;
-//    private static final String IDENTIFICATOR = "SUBCLASS_DISCOUNT_PURCHASE";
+
+    private FinancialValue discountPrice = new FinancialValue(35);
 
     public DiscountPricePurchase() {
     }
 
-    public DiscountPricePurchase(String name, double price, int units) {
+    public DiscountPricePurchase(String name, long price, int units) {
         super(name, price, units);
     }
 
@@ -18,21 +18,20 @@ public class DiscountPricePurchase extends Purchase {
     }
 
     @Override
-    public double getCost() {
-        return super.getCost() - discountPrice;
+    public FinancialValue getCost() {
+        return new FinancialValue((getPrice().getTotal() - discountPrice.getTotal()) * getUnits(), "BYN");
     }
 
     @Override
-    public String toString() {
-        return super.fieldsToString() + "; discountPrice=" + discountPrice
-                + "; cost=" + getCost();
+    protected String fieldsToString() {
+        return super.fieldsToString() + "; discountPrice=" + discountPrice;
     }
 
-    public double getDiscount() {
+    public FinancialValue getDiscountPrice() {
         return discountPrice;
     }
 
-    public void setDiscount(double discount) {
-        this.discountPrice = discount;
+    public void setDiscountPrice(FinancialValue discountPrice) {
+        this.discountPrice = discountPrice;
     }
 }

@@ -22,8 +22,5 @@ public class PurchasesFactory {
             default:
                 throw new IllegalArgumentException();
         }
-
-
     }
-
 }
