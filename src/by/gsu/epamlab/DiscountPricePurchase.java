@@ -4,7 +4,7 @@ import java.util.Scanner;
 
 public class DiscountPricePurchase extends Purchase {
 
-    private FinancialValue discountPrice = new FinancialValue(35);
+    private FinancialValue discountPrice = new FinancialValue(35,"BYN");
 
     public DiscountPricePurchase() {
     }
@@ -19,7 +19,7 @@ public class DiscountPricePurchase extends Purchase {
 
     @Override
     public FinancialValue getCost() {
-        return new FinancialValue((getPrice().getTotal() - discountPrice.getTotal()) * getUnits(), "BYN");
+        return new FinancialValue((getPrice().getAmount() - discountPrice.getAmount()) * getUnits(), "BYN");
     }
 
     @Override

@@ -20,8 +20,7 @@ public class DiscountCostPurchase extends Purchase {
     @Override
     public FinancialValue getCost() {
         if (getUnits() > NUMBER_OF_PURCHASES) {
-           return new FinancialValue(super.getCost().getTotal() * (1 - discountCost / 100), "BYN");
-
+           return new FinancialValue(super.getCost().getAmount() * (1 - discountCost / 100), "BYN");
         }
         return super.getCost();
     }

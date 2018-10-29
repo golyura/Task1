@@ -5,8 +5,6 @@ import by.gsu.epamlab.PurchasesFactory;
 
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.util.Currency;
-import java.util.Locale;
 import java.util.Scanner;
 
 public class Runner {
@@ -35,6 +33,7 @@ public class Runner {
         }  catch (FileNotFoundException e) {
             e.printStackTrace();
         }
+        System.out.println();
         System.out.println("maxCostPurchase = " + maxCostPurchase);
         System.out.println("isPurchasesAreEquals = " + isPurchasesAreEquals);
 
@@ -62,8 +61,8 @@ public class Runner {
 //                Purchase purchaseFromFile = PurchasesFactory.getPurchaseFromFactory(scanner);
 //                runner.purchases[count++] = purchaseFromFile;
 //                System.out.println(purchaseFromFile);
-//                if (maxCost < purchaseFromFile.getCost().getTotal()) {
-//                    maxCost = purchaseFromFile.getCost().getTotal();
+//                if (maxCost < purchaseFromFile.getCost().getAmount()) {
+//                    maxCost = purchaseFromFile.getCost().getAmount();
 //                    maxPurchase = purchaseFromFile;
 //                }
 //                if (count > 1) {

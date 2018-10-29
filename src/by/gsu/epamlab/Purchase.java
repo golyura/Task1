@@ -6,7 +6,7 @@ import java.util.Scanner;
 public class Purchase {
     private String name;
     private int units;
-    private FinancialValue price = new FinancialValue();
+    private FinancialValue price = new FinancialValue(0, "BYN");
 
     //region Constructors
     public Purchase() {
@@ -14,13 +14,13 @@ public class Purchase {
 
     public Purchase(String name, long total, int units) {
         this.name = name;
-        this.price.setTotal(total);
+        this.price.setAmount(total);
         this.units = units;
     }
 
     public Purchase(Scanner scanner) {
         name = scanner.next();
-        price.setTotal(scanner.nextLong());
+        price.setAmount(scanner.nextLong());
         units = scanner.nextInt();
     }
     //endregion
@@ -38,10 +38,10 @@ public class Purchase {
         return units;
     }
 
-    //endregion
+     //endregion
 
     public FinancialValue getCost() {
-        return new FinancialValue(units * price.getTotal(), "BYN");
+        return new FinancialValue(units * price.getAmount(), "BYN");
     }
 
     protected String fieldsToString() {

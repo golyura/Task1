@@ -1,42 +1,41 @@
 package by.gsu.epamlab;
 
 import java.util.Currency;
-import java.util.Locale;
 import java.util.Objects;
 
 public class FinancialValue {
 
-    private Currency currency = Currency.getInstance("BYR");
-    private long total;
+    private Currency currency; // = Currency.getInstance("BYR");
+    private long amount;
 
     public FinancialValue() {
     }
 
-    public FinancialValue(long total, String locale) {
-        createCurrency(locale);
-        this.total = total;
+    public FinancialValue(long amount, String codeCurrency) {
+        createCurrency(codeCurrency);
+        this.amount = amount;
     }
 
-    private void createCurrency(String locale) {
-        if (locale.equals("BYN")) {
+    private void createCurrency(String codeCurrency) {
+        if (codeCurrency.equals("BYN")) {
             this.currency = Currency.getInstance("BYR");
         } else {
-            this.currency = Currency.getInstance(locale);
+            this.currency = Currency.getInstance(codeCurrency);
         }
     }
 
-    public FinancialValue(double total, String locale) {
-        this(total);
-        createCurrency(locale);
+    public FinancialValue(double amount, String codeCurrency) {
+        this(amount);
+        createCurrency(codeCurrency);
 
     }
 
-    public FinancialValue(long total) {
-        this.total = total;
+    public FinancialValue(long amount) {
+        this.amount = amount;
     }
 
-    public FinancialValue(double total) {
-        this.total = floor(total);
+    public FinancialValue(double amount) {
+        this.amount = floor(amount);
     }
 
     public Currency getCurrency() {
@@ -47,28 +46,28 @@ public class FinancialValue {
         this.currency = currency;
     }
 
-    public long getTotal() {
-        return total;
+    public long getAmount() {
+        return amount;
     }
 
-    public void setTotal(long total) {
-        this.total = total;
+    public void setAmount(long amount) {
+        this.amount = amount;
     }
 
-    public void setTotal(double total) {
-        this.total = floor(total);
+    public void setAmount(double amount) {
+        this.amount = floor(amount);
     }
 
-    public static long floor(double total) {
-        return (int) Math.floor(total);
+    public static long floor(double amount) {
+        return (int) Math.floor(amount);
     }
 
     @Override
     public String toString() {
         if (currency.getSymbol().equals("BYR")) {
-            return total + " " + "BYN";
+            return amount + " " + "BYN";
         } else {
-            return total + " " + currency;
+            return amount + " " + currency;
         }
     }
 
@@ -77,25 +76,25 @@ public class FinancialValue {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         FinancialValue financialValue = (FinancialValue) o;
-        return total == financialValue.total &&
+        return amount == financialValue.amount &&
                 Objects.equals(currency, financialValue.currency);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(currency, total);
+        return Objects.hash(currency, amount);
     }
 
-    private int compareTo(FinancialValue o) {
-        if (total < o.total)
+    private int compareToTotal(FinancialValue o) {
+        if (amount < o.amount)
             return -1;
-        if (total == o.getTotal())
+        if (amount == o.getAmount())
             return 0;
         return 1;
     }
 
     public boolean greaterThan(FinancialValue o) {
-        return (compareTo(o) > 0);
+        return (compareToTotal(o) > 0);
     }
 
 
